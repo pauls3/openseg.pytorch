@@ -23,7 +23,7 @@
       "mode": "ss_test",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [2048, 1024],
+        "input_size": [1920, 1080],
         "align_method": "only_pad"
       }
     },
@@ -33,7 +33,7 @@
       "out_dir": "/home/stanik/repos/openseg.pytorch/_out/",
       "data_transformer": {
         "size_mode": "fix_size",
-        "input_size": [2048, 1024],
+        "input_size": [1920, 1080],
         "align_method": "only_pad"
       }
     },
