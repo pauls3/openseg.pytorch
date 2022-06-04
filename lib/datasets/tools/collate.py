@@ -103,8 +103,6 @@ def collate(batch, trans_dict):
                 maskmap = F.interpolate(maskmap, scaled_size_hw, mode='nearest').long().squeeze(0).squeeze(0)
                 batch[i]['maskmap'].data = DataContainer(maskmap, stack=True)
 
-        print('---------------------------------------------------------')
-        print('target_width: ', str(target_width), ' target_height: ', str(target_height), ' scaled_size[0]: ', str(scaled_size[0]), ' scaled_size[1]: ', str(scaled_size[1]))
         pad_width = target_width - scaled_size[0]
         pad_height = target_height - scaled_size[1]
         assert pad_height >= 0 and pad_width >= 0
