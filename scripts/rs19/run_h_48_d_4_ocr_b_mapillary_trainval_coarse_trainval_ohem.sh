@@ -16,7 +16,7 @@ CONFIGS="configs/rs19/H_48_D_4.json"
 CONFIGS_TEST="configs/rs19/H_48_D_4_TEST.json"
 
 MAX_ITERS=20000
-BATCH_SIZE=8
+BATCH_SIZE=32
 
 MODEL_NAME="hrnet_w48_ocr_b"
 LOSS_TYPE="fs_auxohemce_loss"
@@ -35,14 +35,14 @@ if [ "$1"x == "train"x ]; then
                        --train_batch_size ${BATCH_SIZE} \
                        --include_val y  \
                        --phase train --gathered n --loss_balance y --log_to_file n \
-                       --backbone ${BACKBONE} --model_name ${MODEL_NAME} --gpu 0 1 2 3 \
+                       --backbone ${BACKBONE} --model_name ${MODEL_NAME} --gpu 2 3 \
                        --data_dir ${DATA_DIR} --loss_type ${LOSS_TYPE} --max_iters ${MAX_ITERS} \
                        --resume ${PRETRAINED_MODEL} \
                        --resume_strict False \
                        --resume_eval_train False \
                        --resume_eval_val False \
                        --checkpoints_name ${CHECKPOINTS_NAME} \
-                       --base_lr 0.0001 \
+                       --base_lr 0.00015 \
                        --test_interval 2000 \
                        2>&1 | tee ${LOG_FILE}
 
@@ -51,7 +51,7 @@ elif [ "$1"x == "resume"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} --drop_last y --train_batch_size ${BATCH_SIZE} --include_val y \
                        --phase train --gathered n --loss_balance y --log_to_file n \
                        --backbone ${BACKBONE} --model_name ${MODEL_NAME} --max_iters ${MAX_ITERS} \
-                       --data_dir ${DATA_DIR} --loss_type ${LOSS_TYPE} --gpu 0 1 2 3 \
+                       --data_dir ${DATA_DIR} --loss_type ${LOSS_TYPE} --gpu 2 3 \
                        --resume_continue y --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                        --checkpoints_name ${CHECKPOINTS_NAME} --pretrained ${PRETRAINED_MODEL} \
                        --base_lr 0.0001 \
@@ -72,14 +72,14 @@ elif [ "$1"x == "test"x ]; then
     echo "[single scale] test"
     ${PYTHON} -u main.py --configs ${CONFIGS} --drop_last y \
                          --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                         --phase test --gpu 0 1 2 3 --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                         --phase test --gpu 2 3 --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                          --test_dir ${DATA_DIR}/test --log_to_file n \
                          --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_test_ss
   else
     echo "[multiple scale + flip] test"
     ${PYTHON} -u main.py --configs ${CONFIGS_TEST} --drop_last y \
                          --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                         --phase test --gpu 0 1 2 3 --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
+                         --phase test --gpu 2 3 --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
                          --test_dir ${DATA_DIR}/test --log_to_file n \
                          --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_test_ms_6x_depth
   fi
