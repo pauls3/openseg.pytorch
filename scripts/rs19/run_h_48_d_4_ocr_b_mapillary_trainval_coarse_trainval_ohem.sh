@@ -16,7 +16,7 @@ CONFIGS="configs/rs19/H_48_D_4.json"
 CONFIGS_TEST="configs/rs19/H_48_D_4_TEST.json"
 
 MAX_ITERS=20000
-BATCH_SIZE=32
+BATCH_SIZE=24
 
 MODEL_NAME="hrnet_w48_ocr_b"
 LOSS_TYPE="fs_auxohemce_loss"
