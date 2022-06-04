@@ -4,15 +4,15 @@ cd $SCRIPTPATH
 cd ../../../
 . config.profile
 # check the enviroment info
-nvidia-smi${PYTHON} -m pip install yacs
+nvidia-smi${PYTHON} -m pip3 install yacs
 
 export PYTHONPATH="$PWD":$PYTHONPATH
 
-DATA_DIR="${DATA_ROOT}/cityscapes"
-SAVE_DIR="${DATA_ROOT}/seg_result/cityscapes/"
+DATA_DIR="${DATA_ROOT}/rs19"
+SAVE_DIR="${DATA_ROOT}/seg_result/rs19/"
 BACKBONE="hrnet48"
-CONFIGS="configs/cityscapes/H_48_D_4.json"
-CONFIGS_TEST="configs/cityscapes/H_48_D_4_TEST.json"
+CONFIGS="configs/rs19/H_48_D_4.json"
+CONFIGS_TEST="configs/rs19/H_48_D_4_TEST.json"
 
 MAX_ITERS=20000
 BATCH_SIZE=8
@@ -20,13 +20,13 @@ BATCH_SIZE=8
 MODEL_NAME="hrnet_w48_ocr_b"
 LOSS_TYPE="fs_auxohemce_loss"
 CHECKPOINTS_NAME="${MODEL_NAME}_${BACKBONE}_${BATCH_SIZE}_${MAX_ITERS}_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_"$2
-LOG_FILE="./log/cityscapes/${CHECKPOINTS_NAME}.log"
+LOG_FILE="./log/rs19/${CHECKPOINTS_NAME}.log"
 echo "Logging to $LOG_FILE"
 mkdir -p `dirname $LOG_FILE`
 
 # PRETRAINED_MODEL="./pretrained_model/hrnet_w48_ocr_b_mapillary_bs16_500000_1024x1024_lr0.01_1_latest.pth"
 # PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48__8_120000_trainval_ohem_mapillary_miou_508_1_latest.pth" # miou=83.63 on test.
-PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48__16_50000_trainval_coarse_mapillary_pretrain_1_latest.pth"
+PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48_8_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_latest.pth"
 
 if [ "$1"x == "train"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} \
