@@ -29,6 +29,8 @@ mkdir -p `dirname $LOG_FILE`
 # PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48__8_120000_trainval_ohem_mapillary_miou_508_1_latest.pth" # miou=83.63 on test.
 PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48_8_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_latest.pth"
 
+
+# --test_interval 2000 \
 if [ "$1"x == "train"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} \
                        --drop_last y \
@@ -43,7 +45,7 @@ if [ "$1"x == "train"x ]; then
                        --resume_eval_val False \
                        --checkpoints_name ${CHECKPOINTS_NAME} \
                        --base_lr 0.0002 \
-                       --test_interval 2000 \
+                       --test_interval 10 \
                        2>&1 | tee ${LOG_FILE}
 
 
