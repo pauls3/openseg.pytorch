@@ -1,15 +1,16 @@
 #!/usr/bin/env bash
 SCRIPTPATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 cd $SCRIPTPATH
-cd ../../../
+cd ../../
 . config.profile
 # check the enviroment info
-nvidia-smi${PYTHON} -m pip3 install yacs
+nvidia-smi
+${PYTHON} -m pip3 install yacs
 
 export PYTHONPATH="$PWD":$PYTHONPATH
 
-DATA_DIR="${DATA_ROOT}/rs19"
-SAVE_DIR="${DATA_ROOT}/seg_result/rs19/"
+DATA_DIR="${DATA_ROOT}RailSem19/custom_split/"
+SAVE_DIR="_out/seg_result/rs19/"
 BACKBONE="hrnet48"
 CONFIGS="configs/rs19/H_48_D_4.json"
 CONFIGS_TEST="configs/rs19/H_48_D_4_TEST.json"
