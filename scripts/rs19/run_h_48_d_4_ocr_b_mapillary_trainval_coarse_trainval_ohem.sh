@@ -5,11 +5,11 @@ cd ../../
 . config.profile
 # check the enviroment info
 nvidia-smi
-${PYTHON} -m pip3 install yacs
+# ${PYTHON} -m pip3 install yacs
 
 export PYTHONPATH="$PWD":$PYTHONPATH
 
-DATA_DIR="${DATA_ROOT}RailSem19/custom_split/"
+DATA_DIR="${DATA_ROOT}/RailSem19/custom_split/"
 SAVE_DIR="_out/seg_result/rs19/"
 BACKBONE="hrnet48"
 CONFIGS="configs/rs19/H_48_D_4.json"
