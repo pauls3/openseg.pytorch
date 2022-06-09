@@ -16,6 +16,32 @@ import numpy as np
 import scipy.io as sio
 
 
+
+def get_rs19_colors():
+    num_cls = 19
+    colors = [0] * (num_cls * 3)
+    colors[0:3] = (128,64,128)      # 0  road
+    colors[3:6] = (244,35,232)      # 1  sidewalk
+    colors[6:9] = (70,70,70)        # 2  construction
+    colors[9:12] = (192,0,128)      # 3  tram-track
+    colors[12:15] = (190,153,153)   # 4  fence
+    colors[15:18] = (153,153,153)   # 5  pole
+    colors[18:21] = (250,170,30)    # 6  traffic-light
+    colors[21:24] = (220,220,0)     # 7  traffic-sign
+    colors[24:27] = (107,142,35)    # 8  vegetation
+    colors[27:30] = (152,251,152)   # 9  terrain
+    colors[30:33] = (70,130,180)    # 10 sky
+    colors[33:36] = (220,20,60)     # 11 human
+    colors[36:39] = (230,150,140)   # 12 rail-track
+    colors[39:42] = (0,0,142)       # 13 car
+    colors[42:45] = (0,0,70)        # 14 truck
+    colors[45:48] = (90,40,40)      # 15 trackbed
+    colors[48:51] = (0,80,100)      # 16 on-rails
+    colors[51:54] = (0,254,254)     # 17 rail-raised
+    colors[54:57] = (0,68,63)       # 18 rail-embedded
+    return colors
+
+
 def get_cityscapes_colors():
     """ Returns the color map for visualizing the segmentation mask.
     Args:

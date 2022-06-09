@@ -37,7 +37,7 @@ from lib.models.model_manager import ModelManager
 from lib.utils.tools.logger import Logger as Log
 from lib.metrics.running_score import RunningScore
 from lib.vis.seg_visualizer import SegVisualizer
-from lib.vis.palette import get_cityscapes_colors, get_ade_colors, get_lip_colors
+from lib.vis.palette import get_cityscapes_colors, get_ade_colors, get_lip_colors, get_rs19_colors
 from lib.vis.palette import get_pascal_context_colors, get_cocostuff_colors, get_pascal_voc_colors
 from segmentor.tools.module_runner import ModuleRunner
 from segmentor.tools.optim_scheduler import OptimScheduler
@@ -114,6 +114,8 @@ class Tester(object):
             colors = get_pascal_voc_colors()
         elif self.configer.get('dataset') == 'coco_stuff':
             colors = get_cocostuff_colors()
+        elif self.configer.get('dataset') == 'rs19':
+            colors = get_rs19_colors()
         else:
             raise RuntimeError("Unsupport colors")
 
