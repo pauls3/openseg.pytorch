@@ -29,7 +29,7 @@ mkdir -p `dirname $LOG_FILE`
 # PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48__8_120000_trainval_ohem_mapillary_miou_508_1_latest.pth" # miou=83.63 on test.
 
 # PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48_8_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_latest.pth"
-PRETRAINED_MODEL="./checkpoints/rs19/hrnet_w48_ocr_b_hrnet48_24_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_max_performance.pth"
+PRETRAINED_MODEL="./checkpoints/rs19/best/hrnet_w48_ocr_b_hrnet48_24_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_max_performance.pth"
 
 if [ "$1"x == "train"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} \
@@ -63,11 +63,11 @@ elif [ "$1"x == "resume"x ]; then
 elif [ "$1"x == "val"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} --drop_last y --train_batch_size ${BATCH_SIZE} --data_dir ${DATA_DIR} \
                        --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
-                       --phase test --gpu 7 --resume ./checkpoints/cityscapes/${CHECKPOINTS_NAME}_latest.pth \
-                       --test_dir ${DATA_DIR}/val/image --log_to_file n --out_dir val 2>&1 | tee -a ${LOG_FILE}
+                       --phase test --gpu 7 --resume ${PRETRAINED_MODEL} \
+                       --test_dir ${DATA_DIR}/test/image --log_to_file n --out_dir val 2>&1 | tee -a ${LOG_FILE}
   cd lib/metrics
-  ${PYTHON} -u cityscapes_evaluator.py --pred_dir ../../results/cityscapes/test_dir/${CHECKPOINTS_NAME}/val/label \
-                                       --gt_dir ${DATA_DIR}/val/label 2>&1 | tee -a ${LOG_FILE}
+  ${PYTHON} -u cityscapes_evaluator.py --pred_dir ../../results/cityscapes/test_dir/${CHECKPOINTS_NAME}/test/label \
+                                       --gt_dir ${DATA_DIR}/test/label 2>&1 | tee -a ${LOG_FILE}
 
 elif [ "$1"x == "test"x ]; then
   if [ "$3"x == "ss"x ]; then
