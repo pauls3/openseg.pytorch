@@ -27,7 +27,9 @@ mkdir -p `dirname $LOG_FILE`
 
 # PRETRAINED_MODEL="./pretrained_model/hrnet_w48_ocr_b_mapillary_bs16_500000_1024x1024_lr0.01_1_latest.pth"
 # PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48__8_120000_trainval_ohem_mapillary_miou_508_1_latest.pth" # miou=83.63 on test.
-PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48_8_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_latest.pth"
+
+# PRETRAINED_MODEL="./checkpoints/cityscapes/hrnet_w48_ocr_b_hrnet48_8_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_latest.pth"
+PRETRAINED_MODEL="./checkpoints/rs19/hrnet_w48_ocr_b_hrnet48_24_20000_trainval_coarse_trainval_mapillary_pretrain_freeze_bn_1_max_performance.pth"
 
 if [ "$1"x == "train"x ]; then
   ${PYTHON} -u main.py --configs ${CONFIGS} \
