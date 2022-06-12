@@ -75,7 +75,7 @@ elif [ "$1"x == "test"x ]; then
     ${PYTHON} -u main.py --configs ${CONFIGS} --drop_last y \
                          --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
                          --phase test --gpu 0 1 2 3 --resume ${PRETRAINED_MODEL} \
-                         --test_dir ${DATA_DIR}test/image --log_to_file n \
+                         --test_dir ${DATA_DIR}test --log_to_file n \
                          --out_dir ${SAVE_DIR}${CHECKPOINTS_NAME}_test_ss
   else
     echo "[multiple scale + flip] test"
