@@ -25,6 +25,7 @@ import torch
 import numpy as np
 import torch.nn as nn
 import torch.nn.functional as F
+import torch.distributed as dist
 import pydensecrf.densecrf as dcrf
 import pydensecrf.utils as dcrf_utils
 
@@ -238,6 +239,7 @@ class Tester(object):
 
 
     def ss_test(self, inputs, scale=1):
+        dist.init_process_group("gloo", rank=1, world_size=1)
         if isinstance(inputs, torch.Tensor):
             n, c, h, w = inputs.size(0), inputs.size(1), inputs.size(2), inputs.size(3)
             scaled_inputs = F.interpolate(inputs, size=(int(h*scale), int(w*scale)), mode="bilinear", align_corners=True)
