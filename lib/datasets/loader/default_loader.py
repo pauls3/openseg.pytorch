@@ -287,6 +287,7 @@ class CSDataTestLoader(data.Dataset):
         img_list = list()
         name_list = list()
         image_dir = os.path.join(root_dir, dataset)
+        print(image_dir)
         img_extension = os.listdir(image_dir)[0].split('.')[-1]
 
         if self.configer.get('dataset') == 'cityscapes':
