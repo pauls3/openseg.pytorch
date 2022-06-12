@@ -61,7 +61,7 @@ elif [ "$1"x == "resume"x ]; then
 
 
 elif [ "$1"x == "val"x ]; then
-  ${PYTHON} -u main.py --configs ${CONFIGS} --drop_last y --train_batch_size ${BATCH_SIZE} --data_dir ${DATA_DIR} \
+  ${PYTHON} -u -m torch.distributed.launch main.py --configs ${CONFIGS} --drop_last y --train_batch_size ${BATCH_SIZE} --data_dir ${DATA_DIR} \
                        --backbone ${BACKBONE} --model_name ${MODEL_NAME} --checkpoints_name ${CHECKPOINTS_NAME} \
                        --phase test --gpu 7 --resume ${PRETRAINED_MODEL} \
                        --test_dir ${DATA_DIR}test/image --log_to_file n --out_dir val 2>&1 | tee -a ${LOG_FILE}
